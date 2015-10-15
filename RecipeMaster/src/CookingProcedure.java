@@ -111,9 +111,10 @@ public class CookingProcedure {
 		//if we have a plural amount of the measurement we add s
 		String plurIngredient = this.quantity != 1 ? "s" : "";
 		if (this.ingredient.getMeasurement().toLowerCase().equals("unit")) {
-			//example: 02 add 2 oranges
+			//example: 01 add 2 oranges
 			processString +=  this.ingredient.getName().toLowerCase() + plurIngredient;
 		} else {
+			//example 01 add 2 teaspoons of sugar
 			processString += this.ingredient.getMeasurement() + plurIngredient + " of " + this.ingredient.getName().toLowerCase();
 		}
 		   
