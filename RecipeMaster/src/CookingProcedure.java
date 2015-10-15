@@ -1,21 +1,18 @@
-
-import org.apache.commons.lang.WordUtils;
-
 public class CookingProcedure {
 	private int code;
 	private String name;
-	private int ingredientCode;
-	private int quantity;
+	private Ingredient ingredient;
+	private double quantity;
 	private int times;
 	private int time;
 	private int temperature;
 	
-	public CookingProcedure(int code, String name, int ingredientCode, int quantity, int times, int time,
+	public CookingProcedure(int code, String name, Ingredient ingredient, double quantity, int times, int time,
 			int temperature) {
 		super();
 		this.code = code;
 		this.name = name;
-		this.ingredientCode = ingredientCode;
+		this.ingredient = ingredient;
 		this.quantity = quantity;
 		this.times = times;
 		this.time = time;
@@ -48,25 +45,25 @@ public class CookingProcedure {
 
 
 
-	public int getIngredientCode() {
-		return ingredientCode;
+	public Ingredient getIngredient() {
+		return ingredient;
 	}
 
 
 
-	public void setIngredientCode(int ingredientCode) {
-		this.ingredientCode = ingredientCode;
+	public void setIngredient(Ingredient ingredient) {
+		this.ingredient = ingredient;
 	}
 
 
 
-	public int getQuantity() {
+	public double getQuantity() {
 		return quantity;
 	}
 
 
 
-	public void setQuantity(int quantity) {
+	public void setQuantity(double quantity) {
 		this.quantity = quantity;
 	}
 
@@ -109,8 +106,19 @@ public class CookingProcedure {
 
 
 	public String processIngredient() {
-		
-		return "";
+		//ex: 01 add 2
+		String processString = String.format("%02d %s %f ", this.code, this.name.toLowerCase(), this.quantity);
+		//if we have a plural amount of the measurement we add s
+		String plurIngredient = this.quantity != 1 ? "s" : "";
+		if (this.ingredient.getMeasurement().toLowerCase().equals("unit")) {
+			//example: 02 add 2 oranges
+			processString +=  this.ingredient.getName().toLowerCase() + plurIngredient;
+		} else {
+			processString += this.ingredient.getMeasurement() + plurIngredient + " of " + this.ingredient.getName().toLowerCase();
+		}
+		   
+		return processString;
+			// ;
 	}
 
 }

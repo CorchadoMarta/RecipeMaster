@@ -81,6 +81,5 @@ public class Ingredient {
 	public void setAllergens(ArrayList<Allergen> allergens) {
 		this.allergens = allergens;
 	}
-
 	
 }
