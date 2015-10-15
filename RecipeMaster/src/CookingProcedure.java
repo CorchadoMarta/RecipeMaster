@@ -2,12 +2,16 @@ public class CookingProcedure {
 	private int code;
 	private String name;
 	private Ingredient ingredient;
-	private double quantity;
-	private int times;
-	private int time;
-	private int temperature;
+	//the default quantity is 1
+	private double quantity = 1;
+	//any value below 2 means we only do it once
+	private int times = -1;
+	//a null value means we do the procedure with the amount of time it requires, meaning it's not a timed process
+	private String time = null;
+	//any value below 0 means it's something done at ambient temperature
+	private int temperature = -1;
 	
-	public CookingProcedure(int code, String name, Ingredient ingredient, double quantity, int times, int time,
+	public CookingProcedure(int code, String name, Ingredient ingredient, double quantity, int times, String time,
 			int temperature) {
 		super();
 		this.code = code;
@@ -18,7 +22,32 @@ public class CookingProcedure {
 		this.time = time;
 		this.temperature = temperature;
 	}
-
+	
+	//basic constructor for a simple task such as peeling an orange
+	public CookingProcedure(int code, String name, Ingredient ingredient) {
+		super();
+		this.code = code;
+		this.name = name;
+		this.ingredient = ingredient;
+	}
+	
+	public CookingProcedure(int code, String name, Ingredient ingredient, double quantity) {
+		super();
+		this.code = code;
+		this.name = name;
+		this.ingredient = ingredient;
+		this.quantity = quantity;
+	}
+	
+	public CookingProcedure(int code, String name, Ingredient ingredient, double quantity, String time, int temperature) {
+		super();
+		this.code = code;
+		this.name = name;
+		this.ingredient = ingredient;
+		this.quantity = quantity;
+		this.time = time;
+		this.temperature = temperature;
+	}
 	
 
 	public int getCode() {
@@ -81,13 +110,13 @@ public class CookingProcedure {
 
 
 
-	public int getTime() {
+	public String getTime() {
 		return time;
 	}
 
 
 
-	public void setTime(int time) {
+	public void setTime(String time) {
 		this.time = time;
 	}
 
