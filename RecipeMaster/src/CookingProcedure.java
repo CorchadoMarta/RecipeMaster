@@ -9,7 +9,8 @@ public class CookingProcedure {
 	//a null value means we do the procedure with the amount of time it requires, meaning it's not a timed process
 	private String time = null;
 	//any value below 0 means it's something done at ambient temperature
-	private int temperature = -1;
+	//in Celsius degrees
+	private int temperature = -274;
 	
 	public CookingProcedure(int code, String name, Ingredient ingredient, double quantity, int times, String time,
 			int temperature) {
@@ -138,15 +139,28 @@ public class CookingProcedure {
 		//ex: 01 add 2
 		String processString = String.format("%02d %s %f ", this.code, this.name.toLowerCase(), this.quantity);
 		//if we have a plural amount of the measurement we add s
-		String plurIngredient = this.quantity != 1 ? "s" : "";
+		String plural = this.quantity != 1 ? "s" : "";
 		if (this.ingredient.getMeasurement().toLowerCase().equals("unit")) {
 			//example: 01 add 2 oranges
-			processString +=  this.ingredient.getName().toLowerCase() + plurIngredient;
+			processString +=  this.ingredient.getName().toLowerCase() + plural;
 		} else {
-			//example 01 add 2 teaspoons of sugar
-			processString += this.ingredient.getMeasurement() + plurIngredient + " of " + this.ingredient.getName().toLowerCase();
+			//example: 01 add 2 teaspoons of sugar
+			processString += this.ingredient.getMeasurement() + plural + " of " + this.ingredient.getName().toLowerCase();
 		}
-		   
+		//we add the duration of the process if applicable
+		if (this.time != null) {
+			//example: 01 bake 1 potato for 20 minutes
+			processString += " for " + this.time.toLowerCase();
+			
+		}
+		//we add the temperature at which the process is done if necessary
+		//again make sure we're using plural properly, in case some genius inputs a cooking temperature of 1
+		plural = this.temperature != 1 ? "s" : "";
+		if (this.temperature > -274) {
+			//example: 01 bake 1 potato for 20 minutes at 250 degrees
+			processString += " at " + this.temperature + " degree" + plural;
+			
+		}
 		return processString;
 			// ;
 	}
