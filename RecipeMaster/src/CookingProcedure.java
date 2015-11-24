@@ -137,7 +137,7 @@ public class CookingProcedure {
 
 	public String processIngredient() {
 		//ex: 01 add 2
-		String processString = String.format("%02d %s %f ", this.code, this.name.toLowerCase(), this.quantity);
+		String processString = String.format("%s %f ", this.name.toLowerCase(), this.quantity);
 		//if we have a plural amount of the measurement we add s
 		String plural = this.quantity != 1 ? "s" : "";
 		if (this.ingredient.getMeasurement().toLowerCase().equals("unit")) {
@@ -161,8 +161,27 @@ public class CookingProcedure {
 			processString += " at " + this.temperature + " degree" + plural;
 			
 		}
-		return processString;
-			// ;
+		if (this.times > 1) {
+			//we use proper adverbial
+			String adverbial = "";
+			switch (this.times) {
+				//01 peel 2 oranges twice
+				case 2:
+					adverbial = "twice";
+					break;
+				case 3:
+					adverbial = "thrice";
+					break;
+				default:
+					adverbial = this.times + " times";
+					break;
+			}
+			
+			//example: 01 bake 1 potato for 20 minutes at 250 degrees 4 times
+			processString += " " + adverbial;
+			
+		}
+		return processString + ".";
 	}
 
 }
