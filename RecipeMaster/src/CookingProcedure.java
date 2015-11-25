@@ -7,7 +7,7 @@ public class CookingProcedure {
 	//any value below 2 means we only do it once
 	private int times = -1;
 	//a null value means we do the procedure with the amount of time it requires, meaning it's not a timed process
-	private String time = null;
+	private String time = "";
 	//any value below 0 means it's something done at ambient temperature
 	//in Celsius degrees
 	private int temperature = -274;
@@ -134,52 +134,57 @@ public class CookingProcedure {
 	}
 
 
-
 	public String processIngredient() {
-		//ex: 01 add 2
-		String processString = String.format("%s %f ", this.name.toLowerCase(), this.quantity);
-		//if we have a plural amount of the measurement we add s
-		String plural = this.quantity != 1 ? "s" : "";
-		if (this.ingredient.getMeasurement().toLowerCase().equals("unit")) {
-			//example: 01 add 2 oranges
-			processString +=  this.ingredient.getName().toLowerCase() + plural;
-		} else {
-			//example: 01 add 2 teaspoons of sugar
-			processString += this.ingredient.getMeasurement() + plural + " of " + this.ingredient.getName().toLowerCase();
-		}
-		//we add the duration of the process if applicable
-		if (this.time != null) {
-			//example: 01 bake 1 potato for 20 minutes
-			processString += " for " + this.time.toLowerCase();
-			
-		}
-		//we add the temperature at which the process is done if necessary
-		//again make sure we're using plural properly, in case some genius inputs a cooking temperature of 1
-		plural = this.temperature != 1 ? "s" : "";
-		if (this.temperature > -274) {
-			//example: 01 bake 1 potato for 20 minutes at 250 degrees
-			processString += " at " + this.temperature + " degree" + plural;
-			
-		}
-		if (this.times > 1) {
-			//we use proper adverbial
-			String adverbial = "";
-			switch (this.times) {
-				//01 peel 2 oranges twice
-				case 2:
-					adverbial = "twice";
-					break;
-				case 3:
-					adverbial = "thrice";
-					break;
-				default:
-					adverbial = this.times + " times";
-					break;
+		//declarations
+		String processString = "";
+		try {
+			//ex: 01 add 2
+			processString += String.format("%s %f ", this.name.toLowerCase(), this.quantity);
+			//if we have a plural amount of the measurement we add s
+			String plural = this.quantity != 1 ? "s" : "";
+			if (this.ingredient.getMeasurement().toLowerCase().equals("unit")) {
+				//example: 01 add 2 oranges
+				processString +=  this.ingredient.getName().toLowerCase() + plural;
+			} else {
+				//example: 01 add 2 teaspoons of sugar
+				processString += this.ingredient.getMeasurement() + plural + " of " + this.ingredient.getName().toLowerCase();
 			}
-			
-			//example: 01 bake 1 potato for 20 minutes at 250 degrees 4 times
-			processString += " " + adverbial;
-			
+			//we add the duration of the process if applicable
+			if (this.time != null) {
+				//example: 01 bake 1 potato for 20 minutes
+				processString += " for " + this.time.toLowerCase();
+				
+			}
+			//we add the temperature at which the process is done if necessary
+			//again make sure we're using plural properly, in case some genius inputs a cooking temperature of 1
+			plural = this.temperature != 1 ? "s" : "";
+			if (this.temperature > -274) {
+				//example: 01 bake 1 potato for 20 minutes at 250 degrees
+				processString += " at " + this.temperature + " degree" + plural;
+				
+			}
+			if (this.times > 1) {
+				//we use proper adverbial
+				String adverbial = "";
+				switch (this.times) {
+					//01 peel 2 oranges twice
+					case 2:
+						adverbial = "twice";
+						break;
+					case 3:
+						adverbial = "thrice";
+						break;
+					default:
+						adverbial = this.times + " times";
+						break;
+				}
+				
+				//example: 01 bake 1 potato for 20 minutes at 250 degrees 4 times
+				processString += " " + adverbial;
+				
+			}
+		} catch (NullPointerException e) {
+			e.printStackTrace();
 		}
 		return processString + ".";
 	}

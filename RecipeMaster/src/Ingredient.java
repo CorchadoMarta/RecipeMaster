@@ -81,5 +81,14 @@ public class Ingredient {
 	public void setAllergens(ArrayList<Allergen> allergens) {
 		this.allergens = allergens;
 	}
+
+	@Override
+	public String toString() {
+		return "Ingredient [code=" + code + ", name=" + name + ", measurement=" + measurement + ", kCal=" + kCal
+				+ ", carbohydrates=" + carbohydrates + ", protein=" + protein + ", fat=" + fat + ", salt=" + salt
+				+ ", allergens=" + allergens + "]";
+	}
+	
+	
 	
 }

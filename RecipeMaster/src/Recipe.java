@@ -2,18 +2,19 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.SortedMap;
 import java.util.TreeMap;
+import java.util.Map.Entry;
 
 public class Recipe {
 	private int code;
 	private String name;
-	private ArrayList<Ingredient> ingredientsList = new ArrayList<Ingredient>();
+	private ArrayList<Ingredient> ingredientList = new ArrayList<Ingredient>();
 	private SortedMap<Integer, CookingProcedure> proceduresOrder = new TreeMap <Integer, CookingProcedure>();
 	private double kCal;
 	private double carbohydrates;
 	private double protein;
 	private double fat;
 	private double salt;
-	private ArrayList<Allergen> allergensList = new ArrayList<Allergen>();
+	private ArrayList<Allergen> allergenList = new ArrayList<Allergen>();
 	private Date dateOfCreation;
 	private String cuisine;
 	
@@ -24,15 +25,20 @@ public class Recipe {
 		super();
 		this.code = code;
 		this.name = name;
-		this.ingredientsList = ingredientsList;
+		this.ingredientList = ingredientsList;
 		this.proceduresOrder = proceduresOrder;
 		this.kCal = kCal;
 		this.carbohydrates = carbohydrates;
 		this.protein = protein;
 		this.fat = fat;
 		this.salt = salt;
-		this.allergensList = allergensList;
+		this.allergenList = allergensList;
 	}
+	
+	public Recipe() {
+		super();
+	}
+
 	public int getCode() {
 		return code;
 	}
@@ -45,11 +51,11 @@ public class Recipe {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public ArrayList<Ingredient> getIngredientsList() {
-		return ingredientsList;
+	public ArrayList<Ingredient> getIngredientList() {
+		return ingredientList;
 	}
-	public void setIngredientsList(ArrayList<Ingredient> ingredientsList) {
-		this.ingredientsList = ingredientsList;
+	public void setIngredientList(ArrayList<Ingredient> ingredientsList) {
+		this.ingredientList = ingredientsList;
 	}
 	public SortedMap<Integer, CookingProcedure> getProceduresOrder() {
 		return proceduresOrder;
@@ -87,11 +93,11 @@ public class Recipe {
 	public void setSalt(double salt) {
 		this.salt = salt;
 	}
-	public ArrayList<Allergen> getAllergensList() {
-		return allergensList;
+	public ArrayList<Allergen> getAllergenList() {
+		return allergenList;
 	}
-	public void setAllergensList(ArrayList<Allergen> allergensList) {
-		this.allergensList = allergensList;
+	public void setAllergenList(ArrayList<Allergen> allergensList) {
+		this.allergenList = allergensList;
 	}
 	public Date getDateOfCreation() {
 		return dateOfCreation;
@@ -105,5 +111,32 @@ public class Recipe {
 	public void setCuisine(String cuisine) {
 		this.cuisine = cuisine;
 	}
+	
+	public void addIngredient(Ingredient ingredient) {
+		try {
+			this.ingredientList.add(ingredient);
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void addProcedure(CookingProcedure procedure){
+		try {
+			this.getProceduresOrder().put(procedure.getCode(), procedure);
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public String toString() {
+		String str = "";
+		for (Entry<Integer, CookingProcedure> entry : this.getProceduresOrder().entrySet()) {
+			 str += entry.getValue().processIngredient() + "\n";
+		}
+		return str;
+	}
+	
+	
 	
 }

@@ -25,10 +25,14 @@ public class Allergen {
 	}
 
 	public boolean addAllergen(String name){
-		int code = allergenMap.size();
-		String retStri = allergenMap.put(code, name);
-		if (retStri == null) {
-			return true;
+		try {
+			int code = allergenMap.size();
+			String retStri = allergenMap.put(code, name);
+			if (retStri == null) {
+				return true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		return false;
 	}
