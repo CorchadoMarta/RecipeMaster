@@ -87,7 +87,7 @@ public class KitchenDao {
 					+ code + ",'" + name + "','" + measurement + "'," + kCal + "," + carbohydrates + "," + protein + ","
 					+ fat + "," + salt + "," + quantity + ")";
 
-			int affectedRows = statement.executeUpdate(sentence);
+			statement.executeUpdate(sentence);
 
 		} catch (SQLException | ClassNotFoundException e) {
 			System.out.println(e.toString());
@@ -108,7 +108,7 @@ public class KitchenDao {
 			statement = connect.createStatement();
 			String sentencia = "INSERT INTO kitchen.measuring_method (id, description) values ('" + id + "', '"
 					+ description + "')";
-			int affectedRows = statement.executeUpdate(sentencia);
+			statement.executeUpdate(sentencia);
 
 		} catch (SQLException | ClassNotFoundException e) {
 			throw e;
@@ -124,7 +124,7 @@ public class KitchenDao {
 			Class.forName("com.mysql.jdbc.Driver");
 			// Setup the connection with the DB
 			connect = DriverManager
-					.getConnection("jdbc:mysql://localhost/test?" + "user=root&password=jupiter");
+					.getConnection("jdbc:mysql://localhost/kitchen?" + "user=root&password=jupiter");
 
 			// Statements allow to issue SQL queries to the database
 			statement = connect.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
@@ -156,7 +156,7 @@ public class KitchenDao {
 			// Statements allow to issue SQL queries to the database
 			statement = connect.createStatement();
 			String sentencia = "INSERT INTO allergen (id_Allergen, name) values (" + id_Allergen + ", '" + name + "')";
-			int affectedRows = statement.executeUpdate(sentencia);
+			statement.executeUpdate(sentencia);
 
 		} catch (SQLException | ClassNotFoundException e) {
 			throw e;
@@ -177,7 +177,7 @@ public class KitchenDao {
 			statement = connect.createStatement();
 			String sentencia = "INSERT INTO has_allergens (code_ingredient, id_Allergen) values (" + code_ingredient
 					+ ", '" + id_Allergen + "')";
-			int affectedRows = statement.executeUpdate(sentencia);
+			statement.executeUpdate(sentencia);
 
 		} catch (SQLException | ClassNotFoundException e) {
 			throw e;
@@ -197,10 +197,17 @@ public class KitchenDao {
 
 			// Statements allow to issue SQL queries to the database
 			statement = connect.createStatement();
-			String sentencia = "INSERT INTO procedure_recipe (step, code_recipe, code_ingredient, quantity, code_procedure, time, temperature, free) values ("
-					+ step + ", " + code_recipe + ", " + code_ingredient + ", " + quantity + ", " + ", "
-					+ code_procedure + ", " + time + ", " + temperature + ", '" + free + "')";
-			int affectedRows = statement.executeUpdate(sentencia);
+			String sentence = "INSERT INTO procedure_recipe (step, code_recipe, code_ingredient, quantity, code_procedure, time, temperature, free) values (?, ?, ?, ?, ?, ?, ?, ?)";
+			PreparedStatement ps = connect.prepareStatement(sentence);
+			ps.setInt(1, step);
+			ps.setInt(2, code_recipe);
+			ps.setInt(3, code_ingredient);
+			ps.setDouble(4, quantity);
+			ps.setInt(5, code_procedure);
+			ps.setInt(6, time);
+			ps.setDouble(7, temperature);
+			ps.setString(8, free);
+			ps.executeUpdate();
 
 		} catch (SQLException | ClassNotFoundException e) {
 			throw e;
@@ -219,9 +226,14 @@ public class KitchenDao {
 
 			// Statements allow to issue SQL queries to the database
 			statement = connect.createStatement();
-			String sentencia = "INSERT INTO procedure_recipe (code_recipe, description, serves) values ("
-					+ code_recipe + ", '" + description + "', " + serves + ")";
-			int affectedRows = statement.executeUpdate(sentencia);
+			
+			String sentence = "INSERT INTO ref_recipe (code_recipe, description, serves) VALUES (?,?,?)";
+			PreparedStatement ps = connect.prepareStatement(sentence);
+			ps.setInt(1, code_recipe);
+			ps.setString(2, description);
+			ps.setInt(3, serves);
+			// Result set get the result of the SQL query
+			ps.executeUpdate();
 
 		} catch (SQLException | ClassNotFoundException e) {
 			throw e;

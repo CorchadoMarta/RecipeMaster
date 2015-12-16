@@ -8,7 +8,7 @@ public class Recipe {
 	private int code;
 	private String name;
 	private ArrayList<Ingredient> ingredientList = new ArrayList<Ingredient>();
-	private SortedMap<Integer, CookingProcedure> proceduresOrder = new TreeMap <Integer, CookingProcedure>();
+	private SortedMap<Integer, ProcedureRecipe> proceduresOrder = new TreeMap <Integer, ProcedureRecipe>();
 	private double kCal;
 	private double carbohydrates;
 	private double protein;
@@ -20,7 +20,7 @@ public class Recipe {
 	
 	
 	public Recipe(int code, String name, ArrayList<Ingredient> ingredientsList,
-			SortedMap<Integer, CookingProcedure> proceduresOrder, double kCal, double carbohydrates, double protein,
+			SortedMap<Integer, ProcedureRecipe> proceduresOrder, double kCal, double carbohydrates, double protein,
 			double fat, double salt, ArrayList<Allergen> allergensList) {
 		super();
 		this.code = code;
@@ -57,10 +57,10 @@ public class Recipe {
 	public void setIngredientList(ArrayList<Ingredient> ingredientsList) {
 		this.ingredientList = ingredientsList;
 	}
-	public SortedMap<Integer, CookingProcedure> getProceduresOrder() {
+	public SortedMap<Integer, ProcedureRecipe> getProceduresOrder() {
 		return proceduresOrder;
 	}
-	public void setProceduresOrder(SortedMap<Integer, CookingProcedure> proceduresOrder) {
+	public void setProceduresOrder(SortedMap<Integer, ProcedureRecipe> proceduresOrder) {
 		this.proceduresOrder = proceduresOrder;
 	}
 	public double getkCal() {
@@ -120,18 +120,18 @@ public class Recipe {
 		}
 	}
 	
-	public void addProcedure(CookingProcedure procedure){
-		try {
-			this.getProceduresOrder().put(procedure.getCode(), procedure);
-		} catch (NullPointerException e) {
-			e.printStackTrace();
-		}
-	}
+//	public void addProcedure(ProcedureRecipe procedure){
+//		try {
+//			this.getProceduresOrder().put(procedure.get, procedure);
+//		} catch (NullPointerException e) {
+//			e.printStackTrace();
+//		}
+//	}
 
 	@Override
 	public String toString() {
 		String str = "";
-		for (Entry<Integer, CookingProcedure> entry : this.getProceduresOrder().entrySet()) {
+		for (Entry<Integer, ProcedureRecipe> entry : this.getProceduresOrder().entrySet()) {
 			 str += entry.getValue().processIngredient() + "\n";
 		}
 		return str;
