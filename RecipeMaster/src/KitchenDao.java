@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class KitchenDao {
@@ -241,4 +242,57 @@ public class KitchenDao {
 			close();
 		}
 	}
+	
+	public ArrayList<String> getListAllergens(int recipeCode) throws Exception {
+		try {
+			// This will load the MySQL driver, each DB has its own driver
+			Class.forName("com.mysql.jdbc.Driver");
+			// Setup the connection with the DB
+			connect = DriverManager
+					.getConnection("jdbc:mysql://localhost/test?" + "user=root&password=jupiter");
+
+			// Statements allow to issue SQL queries to the database
+			statement = connect.createStatement();
+			// Result set get the result of the SQL query
+			resultSet = statement.executeQuery("select * from feedback.comments");
+			writeResultSet(resultSet);
+			return null;
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			close();
+		}
+	}
+	
+	public ArrayList<Allergen> getListAllergen(int codRecipe) throws Exception {
+		//declarations
+		ArrayList<Allergen> allergens = new ArrayList<Allergen>();
+		try {
+			// This will load the MySQL driver, each DB has its own driver
+			Class.forName("com.mysql.jdbc.Driver");
+			// Setup the connection with the DB
+			connect = DriverManager
+					.getConnection("jdbc:mysql://localhost/kitchen?" + "user=root&password=jupiter");
+
+			// Statements allow to issue SQL queries to the database
+			statement = connect.createStatement();
+			// Result set get the result of the SQL query
+			resultSet = statement.executeQuery("select * from allergen a inner join has_allergens h on a.id_allergen=h.id_allergen INNER JOIN ingredient i on h.code_ingredient=i.code inner join procedure_recipe p on i.code=p.code_ingredient where p.code_recipe=" + codRecipe);
+			writeResultSet(resultSet);
+			while (resultSet.next()) { 
+				int id = resultSet.getInt("id_allergen");
+				String name = resultSet.getString("name");
+				allergens.add(new Allergen(id, name));
+			}
+			return allergens;
+		} catch (Exception e) {
+			throw e;
+			
+		} finally {
+			
+			close();
+		}
+		
+	} 
+	
 }

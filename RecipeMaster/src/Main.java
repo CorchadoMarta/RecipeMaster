@@ -34,13 +34,13 @@ public class Main {
 //		ing.insertProcedureRecipe(1, 1, 7, 250, 1, 0, 0, "in a bowl");
 //		ing.insertProcedureRecipe(2, 1, 8, 200, 1, 0, 0, "in a bowl");
 //		ing.insertProcedureRecipe(3, 1, 10, 20, 1, 0, 0, "in a bowl");
-//		ing.insertProcedureRecipe(4, 1, 9, 15, 1, 0, 0, "in a bowl");
-//		ing.insertProcedureRecipe(5, 1, -1, 0, 2, 0, 0, "until firm");
-//		ing.insertProcedureRecipe(6, 1, -1, 0, 3, 2700, 0, "");
+		//ing.insertProcedureRecipe(4, 1, 9, 15, 1, 0, 0, "in a bowl");
+		//ing.insertProcedureRecipe(5, 1, -1, 0, 2, 0, 0, "until firm");
+		//ing.insertProcedureRecipe(6, 1, -1, 0, 3, 2700, 0, "");
 //		ing.insertProcedureRecipe(7, 1, -1, 0, 2, 0, 0, "");
-		ing.insertProcedureRecipe(8, 1, -1, 0, 4, 0, 0, "on oven tray");
-		ing.insertProcedureRecipe(9, 1, 11, 150, 1, 0, 0, "");
-		ing.insertProcedureRecipe(10, 1, 12, 200, 1, 0, 0, "");
+//		ing.insertProcedureRecipe(8, 1, -1, 0, 4, 0, 0, "on oven tray");
+//		ing.insertProcedureRecipe(9, 1, 11, 150, 1, 0, 0, "");
+//		ing.insertProcedureRecipe(10, 1, 12, 200, 1, 0, 0, "");
 		ing.insertProcedureRecipe(11, 1, -1, 0, 6, 1200, 220, "in oven");
 		
 	} catch (SQLException e) {
