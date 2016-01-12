@@ -1,4 +1,5 @@
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class Main {
 	
@@ -10,6 +11,7 @@ public class Main {
 	  KitchenDao ing = new KitchenDao();
     
     try {
+
     	// We insert all the ingredients
 		//ing.insertIngredients(7, "wheat flour", "g", 341.00, 90.60, 9.86, 1.20, 2.00, 100);
 		//ing.insertIngredients(8, "water", "ml", 0, 0, 0, 0, 0, 100);
@@ -41,7 +43,12 @@ public class Main {
 //		ing.insertProcedureRecipe(8, 1, -1, 0, 4, 0, 0, "on oven tray");
 //		ing.insertProcedureRecipe(9, 1, 11, 150, 1, 0, 0, "");
 //		ing.insertProcedureRecipe(10, 1, 12, 200, 1, 0, 0, "");
-		ing.insertProcedureRecipe(11, 1, -1, 0, 6, 1200, 220, "in oven");
+		//ing.insertProcedureRecipe(11, 1, -1, 0, 6, 1200, 220, "in oven");
+		ArrayList<Allergen> allergs = ing.getListAllergen(2);
+		int len = allergs.size();
+		while (len-- > 0) {
+			System.out.println(allergs.get(len).getName());
+		}
 		
 	} catch (SQLException e) {
 		e.printStackTrace();
