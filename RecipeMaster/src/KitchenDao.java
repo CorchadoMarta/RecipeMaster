@@ -257,7 +257,7 @@ public class KitchenDao {
 			// Statements allow to issue SQL queries to the database
 			statement = connect.createStatement();
 			// Result set get the result of the SQL query
-			resultSet = statement.executeQuery("select i.* from i ingredient inner join has_allergen h on a.id_allergen=h.id_allergen INNER JOIN ingredient i on h.code_ing=i.code inner join procedure_recipe p on i.code=p.code_ingredient where p.code_recipe=" + codRecipe);
+			resultSet = statement.executeQuery("select a.id_allergen, a.name from allergen a inner join has_allergen h on a.id_allergen=h.id_allergen INNER JOIN ingredient i on h.code_ing=i.code inner join procedure_recipe p on i.code=p.code_ingredient where p.code_recipe=" + codRecipe);
 			while (resultSet.next()) { 
 				int id = resultSet.getInt("id_allergen");
 				String name = resultSet.getString("name");
